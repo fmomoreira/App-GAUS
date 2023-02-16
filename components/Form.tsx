@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
+import  firebase  from '../firebaseConfig'
 
 const genderOptions = ['Masculino', 'Feminino', 'Não-binário'];
+
+export interface NewRecordProps {
+    name: string,
+    email: string,
+    contact: string,
+    gender: string
+}
 
 const Form = () => {
     const [name, setName] = useState('');
@@ -11,12 +19,10 @@ const Form = () => {
     const [gender, setGender] = useState('');
     const [errorEmail, setErrorEmail] = useState(false);
 
-    const handleSubmit = () => {
-        console.log('Nome: ', name);
-        console.log('E-mail: ', email);
-        console.log('Contato: ', contact);
-        console.log('Gênero: ', gender);
-    }
+
+
+    const database = firebase.firestore();
+
 
     const isEmailValidSetState = (email: string) => {
         if (isValidEmail(email)) {
@@ -33,6 +39,22 @@ const Form = () => {
         return emailRegex.test(email);
     }
 
+    const newRecord: NewRecordProps = {
+        name,
+        email,
+        contact,
+        gender
+    };
+    const addUserFirebaseStore = () => {
+        database.collection('users').add(newRecord)
+        .then((docRef) => {
+          console.log(`User ${newRecord.name} salvo com sucesso com o ID: ${docRef.id}`);
+        })
+        .catch((error) => {
+          console.error(`Erro ao salvar User: ${error}`);
+        });
+    }
+   
     return (
         <View style={styles.containerForm}>
             <Text style={styles.label}>Nome</Text>
@@ -64,7 +86,9 @@ const Form = () => {
                     <Text>{option}</Text>
                 </TouchableOpacity>
             ))}
-            <TouchableOpacity onPress={handleSubmit}>
+            <TouchableOpacity onPress={() => {
+                return addUserFirebaseStore();
+            }}>
                 <Text>Salvar</Text>
             </TouchableOpacity>
         </View>
