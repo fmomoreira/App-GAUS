@@ -19,7 +19,7 @@ const Form = () => {
     }
 
     const isEmailValidSetState = (email: string) => {
-        if(isValidEmail(email)){
+        if (isValidEmail(email)) {
             setEmail(email)
             setErrorEmail(false)
         } else {
@@ -31,7 +31,7 @@ const Form = () => {
     function isValidEmail(email: string) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
-      }
+    }
 
     return (
         <View style={styles.containerForm}>
@@ -43,16 +43,16 @@ const Form = () => {
                 onChangeText={setName}
                 style={styles.input}
             />
-           
-              <Text style={styles.label}>E-mail</Text>
+
+            <Text style={styles.label}>E-mail</Text>
             <TextInput
                 placeholder="E-mail"
                 value={email}
                 onChangeText={isEmailValidSetState}
                 style={styles.input}
             />
-             {errorEmail ? <Text>email invalido</Text> : null}
-             <Text style={styles.label}>Contato</Text>
+            {errorEmail ? <Text>email invalido</Text> : null}
+            <Text style={styles.label}>Contato</Text>
             <TextInput
                 placeholder="Contato"
                 value={contact}
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     input: {
-        paddingHorizontal: 16,
-        backgroundColor: '#f2f2f2',
-
-        borderRadius: 8,
-        fontSize: 16,
-        color: '#333',
-        marginVertical: 8,
+        height: 50,
+        width: "90%",
+        backgroundColor: "#404040",
+        color: "#CBCBCB",
+        borderRadius: 5,
+        marginBottom: 20,
+        padding: 10
     },
     label: {
         fontSize: 16,
