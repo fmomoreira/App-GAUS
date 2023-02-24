@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 import  firebase  from '../firebaseConfig'
@@ -18,7 +18,6 @@ const Form = () => {
     const [contact, setContact] = useState('');
     const [gender, setGender] = useState('');
     const [errorEmail, setErrorEmail] = useState(false);
-
 
 
     const database = firebase.firestore();
@@ -58,7 +57,7 @@ const Form = () => {
     return (
         <View style={styles.containerForm}>
             <Text style={styles.label}>Nome</Text>
-
+            <Text>ProjectID: {process.env.REACT_APP_PROJECTID}</Text>
             <TextInput
                 placeholder="Nome"
                 value={name}
